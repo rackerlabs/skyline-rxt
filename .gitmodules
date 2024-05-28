@@ -1,0 +1,6 @@
+[submodule "skyline-console"]
+	path = skyline-console
+	url = https://github.com/rackerlabs/skyline-console.git
+[submodule "skyline-apiserver"]
+	path = skyline-apiserver
+	url = https://github.com/rackerlabs/skyline-apiserver.git
