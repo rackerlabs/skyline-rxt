@@ -9,9 +9,9 @@ RUN git clone https://github.com/rackerlabs/skyline-console /opt/skyline-console
 RUN mkdir /opt/skyline-apiserver/skyline_console  
 RUN tar -czvf /opt/skyline-apiserver/skyline_console/skyline_console.tar.gz -C /opt/skyline-console .
 RUN pip install -U /opt/skyline-apiserver/skyline_console/skyline_console.tar.gz
-RUN pip install -r /opt/skyline-apiserver/requirements.txt -chttps://releases.openstack.org/constraints/upper/master
+RUN pip install -r /opt/skyline-apiserver/requirements.txt -chttps://releases.openstack.org/constraints/upper/2024.2
 
-RUN pip install /opt/skyline-apiserver -chttps://releases.openstack.org/constraints/upper/master \
+RUN pip install /opt/skyline-apiserver -chttps://releases.openstack.org/constraints/upper/2024.2 \
     && apt-get clean \
     && rm -rf ~/.cache/pip \
     && mkdir -p /etc/skyline /var/log/skyline /var/lib/skyline
