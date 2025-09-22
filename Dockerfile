@@ -6,12 +6,18 @@ RUN apt update -y && apt install -y --no-install-recommends apt-utils \
 
 RUN git clone https://github.com/rackerlabs/skyline-apiserver /opt/skyline-apiserver
 RUN git clone https://github.com/rackerlabs/skyline-console /opt/skyline-console
-RUN mkdir /opt/skyline-apiserver/skyline_console  
+RUN mkdir /opt/skyline-apiserver/skyline_console
 RUN tar -czvf /opt/skyline-apiserver/skyline_console/skyline_console.tar.gz -C /opt/skyline-console .
 RUN pip install -U /opt/skyline-apiserver/skyline_console/skyline_console.tar.gz
-RUN pip install -r /opt/skyline-apiserver/requirements.txt -chttps://releases.openstack.org/constraints/upper/2025.1
 
-RUN pip install /opt/skyline-apiserver -chttps://releases.openstack.org/constraints/upper/2025.1 \
+RUN pip install "python-octaviaclient>=3.11.1"
+
+RUN curl -sSL https://releases.openstack.org/constraints/upper/2025.1 \
+    | grep -v '^python-octaviaclient===' > /tmp/constraints.txt
+
+RUN pip install -r /opt/skyline-apiserver/requirements.txt -c /tmp/constraints.txt
+
+RUN pip install /opt/skyline-apiserver -c /tmp/constraints.txt \
     && apt-get clean \
     && rm -rf ~/.cache/pip \
     && mkdir -p /etc/skyline /var/log/skyline /var/lib/skyline
